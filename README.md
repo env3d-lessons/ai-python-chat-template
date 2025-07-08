@@ -96,13 +96,6 @@ What is the capital of Canada?<|im_end|>
 The capital of Canada is Ottawa.<|im_end|>
 ```
 
-```
-<|im_start|>user
-What is the capital of Canada?<|im_end|>
-<|im_start|>assistant
-The capital of Canada is Ottawa.<|im_end|>
-```
-
 Noticed some special strings like `<|im_start|>user` and `<|im_end|>`.  
 These are called special tokens and they help the LLM understand the structure of the
 conversation.  So imagine the LLM is trained on a dataset with these special tokens, it
@@ -292,7 +285,7 @@ But for a basic bomb, this method is both effective and simple.<|im_end|>
 
 ## Exercise
 
-TODO
+Create your own example of this prompt hacking technique as above.
 
 ## Conclusion
 
