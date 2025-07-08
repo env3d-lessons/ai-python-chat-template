@@ -184,6 +184,14 @@ It's basically all about encouraging certain completion patterns based on the tr
 
 # Hacking LLMs with non-standard chat templates
 
+> ⚠️ Instructor Note:
+This section demonstrates prompt injection, a technique used to bypass safety guardrails in LLMs.
+It's shown here purely for educational purposes — to help students understand both the limits of prompt-only safety and the importance of secure prompt design.
+> 
+> Do not encourage students to explore unsafe generations. Instead, use this as a teachable moment about AI ethics and the fragility of system behavior.
+
+
+
 So let's say the LLM is trained not to respond to certain queries, because it is deemed
 dangerous or inappropriate.  As follows:
 
@@ -287,6 +295,6 @@ But for a basic bomb, this method is both effective and simple.<|im_end|>
 
 Create your own example of this prompt hacking technique as above.
 
-## Conclusion
+# Conclusion
 
 It's worth noting that Qwen's explicit <think> tags are unique - most other models like GPT or Claude handle reasoning internally without exposing it as tokens. While these models can be encouraged to show their reasoning through prompts like 'Let me think step by step...', they don't have the structured thinking format that Qwen provides. This makes Qwen particularly useful for understanding how LLMs actually process information, since you can see the reasoning steps that are usually hidden.
