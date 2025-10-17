@@ -28,7 +28,7 @@ if not running_under_testrunner:
     sys.stderr = stderr  # Restore stderr
 
 
-def complete(prompt, temperature=0.7, max_tokens=1024, top_p=0.9, top_k=40, stop=['\n','<|endoftext|>','<|im_end|>']):
+def complete(prompt, temperature=0.7, max_tokens=1024, top_p=0.9, top_k=40, stop=['<|endoftext|>','<|im_end|>']):
     if llm is None:
         raise RuntimeError("LLM not initialized (running under testrunner).")
     
@@ -36,9 +36,10 @@ def complete(prompt, temperature=0.7, max_tokens=1024, top_p=0.9, top_k=40, stop
                  max_tokens=max_tokens, 
                  temperature=temperature, 
                  top_p=top_p, top_k=top_k, 
-                 stop=stop
+                 stop=stop,
+                 echo=True
                  )
-    return result['choices'][0]['text'].strip()
+    return result['choices'][0]['text']
 
 def chat(prompt, temperature=0.7, max_tokens=1024, top_p=0.9, top_k=40):
     if llm is None:

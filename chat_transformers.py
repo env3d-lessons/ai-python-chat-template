@@ -65,7 +65,7 @@ def chat(prompt =  [{"role": "user", "content": "Hello"}], temperature = 1.0):
     # print("content:", content)
     return content
     
-def complete(prompt =  "<|im_start>user\nhello<|im_end|>\n<|im_start|>assistant\n", temperature = 1.0, max_new_tokens = 512):
+def complete(prompt, temperature = 1.0, max_tokens = 512):
     """
     Like chat, but without the chat template.
     """
@@ -94,7 +94,7 @@ def complete(prompt =  "<|im_start>user\nhello<|im_end|>\n<|im_start|>assistant\
         **model_inputs,
         temperature=temperature,  # ← added parameter here
         do_sample=True,            # ← must be True for temperature to have an effect        
-        max_new_tokens=max_new_tokens
+        max_new_tokens=max_tokens
     )
     output_ids = generated_ids[0][len(model_inputs.input_ids[0]):].tolist() 
 
@@ -104,7 +104,7 @@ def complete(prompt =  "<|im_start>user\nhello<|im_end|>\n<|im_start|>assistant\
     # print("content:", content)
     return prompt+content
 
-def get_next_token_dictionary(sentence, top_k = 10):    
+def get_top_tokens(sentence, n = 10):    
     """
     Returns a dictionary of tokens with both token and probability
     Second argument top_k controls how many possible tokens to return
@@ -132,7 +132,7 @@ def get_next_token_dictionary(sentence, top_k = 10):
     last_token_logits = logits[0, -1, :]
     probabilities = torch.nn.functional.softmax(last_token_logits, dim=-1)
     
-    top_k_values, top_k_indices = torch.topk(probabilities, top_k)
+    top_k_values, top_k_indices = torch.topk(probabilities, n)
 
     # Not decoding automatically
     # top_k_tokens = tokenizer.convert_ids_to_tokens(top_k_indices.tolist())
@@ -149,7 +149,7 @@ def get_next_token_list(sentence, top_k = 10):
     Returns a list of tokens sort by probabilities, highest comes first.
     Second argument top_k controls how many possible tokens to return
     """
-    results = get_next_token_dictionary(sentence, top_k)
+    results = get_top_tokens(sentence, top_k)
     sorted_results = sorted(results, key=lambda x: x.get("probability"), reverse=True)
     return [r["token"] for r in sorted_results]
 
